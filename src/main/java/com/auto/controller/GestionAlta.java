@@ -18,5 +18,12 @@ public class GestionAlta {
 	public String getAll2(Model model) {
 		return "index";
 	}
+	
+	@GetMapping("/hola")
+	public String getAll3(Model model) {
+		return "index";
+	}
+	
+	
 
 }

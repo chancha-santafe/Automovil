@@ -6,16 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "CARACTERISTICAS")
-public class Caracteristica {
-	
+@Table(name = "Variantes")
+public class Variantes {
+
 	@Id
-	@Column (name = "ID")
+	@Column(name = "ID")
 	private int id;
-	
+
 	@Column
 	private String nombre;
-	
+
+	@Column
+	private String descripcion;
+
 	@Column(name = "COSTO")
 	private Double costo;
 
@@ -41,6 +44,14 @@ public class Caracteristica {
 
 	public void setCosto(Double costo) {
 		this.costo = costo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }

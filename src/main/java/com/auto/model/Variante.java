@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Variantes")
-public class Variantes {
+@Table(name = "Variante")
+public class Variante {
 
 	@Id
 	@Column(name = "ID")

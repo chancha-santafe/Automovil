@@ -17,6 +17,5 @@ public class AutoServiceImpl implements AutoService{
 		return autoRepo.findAll();
 	}
 	
-	
 
 }

@@ -1,8 +1,11 @@
 package com.auto.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -15,11 +18,15 @@ public class Automovil {
 	@Column(name = "ID")
 	private int id;
 
-	@Column (name="NOMBRE")
+	@Column(name = "NOMBRE")
 	private String nombre;
 
-	@Column (name = "COSTO")
+	@Column(name = "COSTO")
 	private Double costo;
+	
+	@Column (name= "VARIANTE")
+	@OneToMany
+	private List<Variante> variantes;
 
 	public int getId() {
 		return id;
@@ -43,6 +50,14 @@ public class Automovil {
 
 	public void setCosto(Double costo) {
 		this.costo = costo;
+	}
+
+	public List<Variante> getVariantes() {
+		return variantes;
+	}
+
+	public void setVariantes(List<Variante> variantes) {
+		this.variantes = variantes;
 	}
 
 }

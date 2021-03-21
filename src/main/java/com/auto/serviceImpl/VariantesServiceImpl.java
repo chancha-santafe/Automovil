@@ -18,5 +18,10 @@ public class VariantesServiceImpl implements VarianteService {
 	public List<Variante> findAll() {
 		return varianteRepo.findAll();
 	}
+	
+	public Variante findByNombre(String nombre){
+		return varianteRepo.findByNombre(nombre);
+	}
+
 
 }

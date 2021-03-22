@@ -9,5 +9,7 @@ public interface VarianteService {
 	public List<Variante> findAll();
 	
 	public Variante findByNombre(String nombre);
+	
+	public Variante save(Variante variante);
 
 }

@@ -18,10 +18,19 @@ public class VariantesServiceImpl implements VarianteService {
 	public List<Variante> findAll() {
 		return varianteRepo.findAll();
 	}
-	
-	public Variante findByNombre(String nombre){
+
+	public Variante findByNombre(String nombre) {
 		return varianteRepo.findByNombre(nombre);
 	}
 
+	public Variante save(Variante variante) {
+		Variante var = varianteRepo.save(variante);
+		if (var != null) {
+			return var;
+		} else {
+			return null;
+		}
+
+	}
 
 }

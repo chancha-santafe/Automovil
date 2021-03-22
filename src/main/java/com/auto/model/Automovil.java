@@ -1,18 +1,28 @@
 package com.auto.model;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "AUTOMOVIL")
-@PrimaryKeyJoinColumn(name = "ID")
-public class Automovil {
+public class Automovil  implements Serializable{
+
+ 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ID")
@@ -21,11 +31,13 @@ public class Automovil {
 	@Column(name = "NOMBRE")
 	private String nombre;
 
-	@Column(name = "COSTO")
+	@Column(name = "COSTO_TOTAL")
 	private Double costo;
 	
-	@Column (name= "VARIANTE")
-	@OneToMany
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="AutoVariante", joinColumns={@JoinColumn(name="IdAuto")}, inverseJoinColumns={@JoinColumn(name="IdVariante")})
+	@JsonManagedReference
 	private List<Variante> variantes;
 
 	public int getId() {

@@ -29,15 +29,14 @@ public class AutoServiceImpl implements AutoService {
 	 * Metodo que guarda un automovil y calcula su costo.
 	 */
 	public Automovil save(String id, String nombre, List<String> lista) {
-		
-		
+
 		// Si ya se guardo un auto con ese id
 		Automovil auto = new Automovil();
 		auto = iAutoRepo.findByNombre(nombre);
 		if (auto != null) {
 			return null;
-		}else {
-			 auto = new Automovil();
+		} else {
+			auto = new Automovil();
 		}
 		auto.setId(Integer.parseInt(id));
 		auto.setNombre(nombre);
@@ -66,12 +65,47 @@ public class AutoServiceImpl implements AutoService {
 		return iAutoRepo.save(auto);
 
 	}
+	
+	/*
+	 * Metodo que actualiza un automovil y calcula su costo.
+	 */
+	public Automovil update(String id, String nombre, List<String> lista) {
+		
+		
+		// Si ya se guardo un auto con ese id
+		Automovil auto = iAutoRepo.findByNombre(nombre);
+		
+		auto.setId(Integer.parseInt(id));
+		auto.setNombre(nombre);
+		
+		Double costoTotal = Double.valueOf(0);
+		List<Variante> listaVarinates = new ArrayList<>();
+
+		// Buscamos el costo del auto basico
+		Variante varianteAuto = iVarianteRepo.findByNombre(nombre);
+		listaVarinates.add(varianteAuto);
+		costoTotal += varianteAuto.getCosto();
+
+
+		// Buscamos uno a uno las variantes con sus costos
+		for (int i = 0; i < lista.size(); i++) {
+			Variante variante = iVarianteRepo.findByNombre(lista.get(i));
+			if (variante != null) {
+				costoTotal += variante.getCosto();
+				listaVarinates.add(variante);
+			}
+		}
+		auto.setCosto(costoTotal);
+		auto.setVariantes(listaVarinates);
+		return iAutoRepo.save(auto);
+
+	}
 
 	public Automovil findByNombre(String nombre) {
 		return iAutoRepo.findByNombre(nombre);
 	}
-	
-	public void deleteByNombre( Automovil automovil) {
+
+	public void deleteByNombre(Automovil automovil) {
 		iAutoRepo.delete(automovil);
 	}
 

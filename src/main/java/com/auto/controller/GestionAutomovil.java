@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,7 +58,7 @@ public class GestionAutomovil {
 	 * Metodo POST que inserta una variante nueva
 	 */
 	@PostMapping("/addVariante")
-	public ResponseEntity<Variante> inseratrVariante(@RequestParam("id") String id,
+	public ResponseEntity<Variante> insertarVariante(@RequestParam("id") String id,
 			@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion,
 			@RequestParam("costo") String costo) {
 		Variante variante = varianteService.save(id, nombre, costo, descripcion);
@@ -70,14 +71,31 @@ public class GestionAutomovil {
 
 	/**
 	 * 
-	 * Metodo Post que guarda un nuevo Automovil en la Base de datos
+	 * Metodo POST que guarda un nuevo Automovil en la Base de datos
 	 * 
 	 */
 
 	@PostMapping(path = "/guardarAuto")
-	public ResponseEntity<Automovil> get(@RequestParam("id") String id, @RequestParam("nombre") String nombre,
+	public ResponseEntity<Automovil> guardar(@RequestParam("id") String id, @RequestParam("nombre") String nombre,
 			@RequestParam("opcionales") List<String> opcionales) {
 		Automovil auto = autoService.save(id, nombre, opcionales);
+		if (auto == null) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(auto);
+		}
+	}
+	
+	/**
+	 * 
+	 * Metodo PUT que actualiza un nuevo Automovil en la Base de datos
+	 * 
+	 */
+
+	@PutMapping(path = "/actualizaAuto")
+	public ResponseEntity<Automovil> actualizar(@RequestParam("id") String id, @RequestParam("nombre") String nombre,
+			@RequestParam("opcionales") List<String> opcionales) {
+		Automovil auto = autoService.update(id, nombre, opcionales);
 		if (auto == null) {
 			return ResponseEntity.notFound().build();
 		} else {

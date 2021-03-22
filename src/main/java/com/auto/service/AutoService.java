@@ -13,5 +13,7 @@ public interface AutoService {
 	public Automovil findByNombre(String nombre);
 	
 	public void deleteByNombre(Automovil automovil);
+	
+	public Automovil update(String id, String nombre, List<String> lista);
 
 }

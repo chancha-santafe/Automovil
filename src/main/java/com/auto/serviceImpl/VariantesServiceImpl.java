@@ -30,7 +30,15 @@ public class VariantesServiceImpl implements VarianteService {
 		} else {
 			return null;
 		}
-
+	}
+	
+	public Variante save(String id, String nombre, String costo, String descricpcion ) {
+		Variante variante = new Variante();
+		variante.setCosto(Double.valueOf(costo));
+		variante.setNombre(nombre);
+		variante.setDescripcion(descricpcion);
+		variante.setId(Integer.valueOf(id));
+		return varianteRepo.save(variante);
 	}
 
 }

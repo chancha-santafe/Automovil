@@ -16,9 +16,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "AUTOMOVIL")
-public class Automovil  implements Serializable{
+public class Automovil implements Serializable {
 
- 
 	/**
 	 * 
 	 */
@@ -33,20 +32,13 @@ public class Automovil  implements Serializable{
 
 	@Column(name = "COSTO_TOTAL")
 	private Double costo;
-	
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="AutoVariante", joinColumns={@JoinColumn(name="IdAuto")}, inverseJoinColumns={@JoinColumn(name="IdVariante")})
+	//@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(name = "AutoVariante", joinColumns = { @JoinColumn(name = "IdAuto") }, inverseJoinColumns = {
+			@JoinColumn(name = "IdVariante") })
 	@JsonManagedReference
 	private List<Variante> variantes;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -71,5 +63,15 @@ public class Automovil  implements Serializable{
 	public void setVariantes(List<Variante> variantes) {
 		this.variantes = variantes;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+ 
 
 }

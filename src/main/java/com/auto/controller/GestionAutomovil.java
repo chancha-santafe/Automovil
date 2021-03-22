@@ -3,14 +3,12 @@ package com.auto.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auto.model.Automovil;
@@ -59,14 +57,16 @@ public class GestionAutomovil {
 	 * Metodo POST que inserta una variante nueva
 	 */
 	@PostMapping("/addVariante")
-	public ResponseEntity<String> inseratrVariante(@RequestBody Variante var) {
-		Variante variante = varianteService.save(var);
+	public ResponseEntity<Variante> inseratrVariante(@RequestParam("id") String id, @RequestParam("nombre") String nombre,
+			@RequestParam("descripcion") String descripcion, @RequestParam("costo") String costo) {
+		Variante variante = varianteService.save(id, nombre, costo, descripcion) ;
 		if (variante == null) {
 			return ResponseEntity.notFound().build();
 		} else {
-			return new ResponseEntity(HttpStatus.OK);
+			return ResponseEntity.ok(variante);
 		}
 	}
+	
 	
 
 	/**
@@ -99,28 +99,27 @@ public class GestionAutomovil {
 	public ResponseEntity<Automovil> getAuto(@RequestParam String nombre) {
 		Automovil automovil = autoService.findByNombre(nombre);
 		if (automovil == null) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.notFound().build();  
 		} else {
 			return ResponseEntity.ok(automovil);
 		}
 	}
 	
-	
-	
-	
-	
-	
-	@GetMapping("/foos")
-	@ResponseBody
-	public String getFoos(@RequestParam List<String> id) {
-		return "IDs are " + id;
+	/**
+	 * 
+	 * Metodo DELETE que nos borra un auto a partir de su nombre
+	 */
+	@DeleteMapping("/borrarAuto")
+	public ResponseEntity<String> deleteAuto(@RequestParam String nombre) {
+		Automovil automovil = autoService.findByNombre(nombre);
+		// Validamos si el auto existe en la BD
+		if (automovil == null) {
+			return ResponseEntity.notFound().build();  
+		} else {
+			autoService.deleteByNombre(automovil);
+			return ResponseEntity.ok(nombre);
+		}
 	}
-
-	// Recibe un JSON
-	@PostMapping(path = "/libros")
-	public ResponseEntity<String> insertarLibro(@RequestBody Automovil a, @RequestParam("opcionales") List<String> opcionales) {
-		System.out.println("----" + a.getNombre());
-		return new ResponseEntity(HttpStatus.OK);
-	}
+	
 
 }

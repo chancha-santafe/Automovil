@@ -11,5 +11,7 @@ public interface VarianteService {
 	public Variante findByNombre(String nombre);
 	
 	public Variante save(Variante variante);
+	
+	public Variante save(String id, String nombre, String costo, String descricpcion );
 
 }

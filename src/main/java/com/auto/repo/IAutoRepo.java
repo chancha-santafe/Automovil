@@ -7,5 +7,7 @@ import com.auto.model.Automovil;
 public interface IAutoRepo extends JpaRepository<Automovil, Integer>{
 	
 	Automovil findByNombre(String nombre);
+	
+ 
 
 }

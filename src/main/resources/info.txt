@@ -1,7 +1,0 @@
-create table fabrica.detalles(
-	id int,
-  nombre varchar(30),
-  costo double precision
- );
- 
- 

@@ -11,5 +11,7 @@ public interface AutoService {
 	public Automovil save(String id, String nombre, List<String> lista);
 	
 	public Automovil findByNombre(String nombre);
+	
+	public void deleteByNombre(Automovil automovil);
 
 }

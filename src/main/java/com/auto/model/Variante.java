@@ -3,7 +3,6 @@ package com.auto.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,8 +16,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "VARIANTE")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-public class Variante implements Serializable{
-
+public class Variante implements Serializable {
 
 	/**
 	 * 
@@ -37,19 +35,10 @@ public class Variante implements Serializable{
 
 	@Column(name = "COSTO")
 	private Double costo;
-	
 
-    @ManyToMany(cascade = {CascadeType.ALL},mappedBy="variantes")
-    @JsonBackReference
-    private List<Automovil> auto;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	@ManyToMany( mappedBy = "variantes")
+	@JsonBackReference
+	private List<Automovil> auto;
 
 	public String getNombre() {
 		return nombre;
@@ -81,6 +70,14 @@ public class Variante implements Serializable{
 
 	public void setAuto(List<Automovil> auto) {
 		this.auto = auto;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

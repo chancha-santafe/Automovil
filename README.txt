@@ -8,4 +8,5 @@ Herramienta de compilación: Maven
 Persistencia: JPA
 Base de Datos: Postgres
 Herramienta para Api Rest: Postman
+Herramienta de control de Versionado: Git
  
